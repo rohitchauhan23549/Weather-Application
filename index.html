@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <meta charset="ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+           <title>Weather Website</title>
+
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <!-- Bootstrap -->
+
+</head>
+
+
+<style>
+
+.video-background-holder video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.container1{
+  
+  z-index: 1;
+  overflow: auto;
+  opacity:0.99;
+}
+
+
+
+</style>  
+
+<script type="text/javascript">
+function search(city){  
+console.log(city);  
+
+var xhttpr = new XMLHttpRequest();
+xhttpr.open('GET', 'https://api.weatherapi.com/v1/current.json?key= f41c90ed315b44f683d124121202810&q='+city , true);
+
+xhttpr.send();
+
+xhttpr.onload = ()=> {
+  if (xhttpr.status === 200) {
+      var response = JSON.parse(xhttpr.response);
+      // Process the response data here
+      //console.log(response);
+      //console.log(response.location.name);
+      //console.log(response.current);
+
+
+
+      //Start of Region Section
+      var region=document.getElementsByClassName('region')[0];
+      while(region.firstChild)
+      {
+        region.removeChild(region.firstChild);
+      }
+      console.log(region);
+
+      var name=document.createElement('p');
+      name.innerHTML="City:- "+response.location.name;
+      var region1=document.createElement('p');
+      region1.innerHTML="State:- "+response.location.region;
+      var country=document.createElement('p');
+      country.innerHTML="Country:- "+response.location.country;
+      region.appendChild(name);
+      region.appendChild(region1);
+      region.appendChild(country);
+      
+      //End of Region Section
+
+
+
+
+      //Start of Location Section
+      var location1=document.getElementsByClassName('location1')[0];
+      while(location1.firstChild)
+      {
+        location1.removeChild(location1.firstChild);
+      }
+      console.log(location1);
+
+      var latitude=document.createElement('p');
+      latitude.innerHTML="Latitude:- "+response.location.lat;
+      var longitude=document.createElement('p');
+      longitude.innerHTML="Longitude:- "+response.location.lon;
+      var timeZone=document.createElement('p');
+      timeZone.innerHTML="Time Zone:- "+response.location.tz_id;
+      location1.appendChild(latitude);
+      location1.appendChild(longitude);
+      location1.appendChild(timeZone);
+      //End of Location Section
+
+
+
+      //Start of Temperature Section
+      var temperature=document.getElementsByClassName('temperature')[0];
+      while(temperature.firstChild)
+      {
+        temperature.removeChild(temperature.firstChild);
+      }
+      console.log(temperature);
+
+      var centigrate=document.createElement('p');
+      centigrate.innerHTML="Temp(C):- "+response.current.temp_c;
+      var fahrenheit=document.createElement('p');
+      fahrenheit.innerHTML="Temp(F):- "+response.current.temp_f;
+      var daytime=document.createElement('p');
+      daytime.innerHTML="Daytime:- "+response.current.is_day;
+      temperature.appendChild(centigrate);
+      temperature.appendChild(fahrenheit);
+      temperature.appendChild(daytime);
+      //End of Temperature Section
+
+
+
+
+
+      //Start of Conditions Section
+      var condition=document.getElementsByClassName('condition')[0];
+      while(condition.firstChild)
+      {
+        condition.removeChild(condition.firstChild);
+      }
+      console.log(condition);
+
+      var text1=document.createElement('p');
+      text1.innerHTML="Atmosphere:- "+response.current.condition.text;
+      var precipitation=document.createElement('p');
+      precipitation.innerHTML="Precipitation(mm):- "+response.current.precip_mm;
+      var precipitation_index=document.createElement('p');
+      precipitation_index.innerHTML="Precipitation(Index):- "+response.current.precip_in;
+      condition.appendChild(text1);
+      condition.appendChild(precipitation);
+      condition.appendChild(precipitation_index);
+      //End of Conditions Section
+
+
+
+      //Start of Wind Speed Section
+      var wind_speed=document.getElementsByClassName('wind_speed')[0];
+      while(wind_speed.firstChild)
+      {
+        wind_speed.removeChild(wind_speed.firstChild);
+      }
+      console.log(wind_speed);
+
+      var windmph=document.createElement('p');
+      windmph.innerHTML="Wind(mph):- "+response.current.wind_mph;
+      var windkph=document.createElement('p');
+      windkph.innerHTML="Wind(kph):- "+response.current.wind_kph;
+      var winddir=document.createElement('p');
+      winddir.innerHTML="Wind Direction:- "+response.current.wind_dir;
+      wind_speed.appendChild(windmph);
+      wind_speed.appendChild(windkph);
+      wind_speed.appendChild(winddir);
+      //End of Wind Speed Section
+
+
+
+      //Start of Pressure Section
+      var pressure=document.getElementsByClassName('pressure')[0];
+      while(pressure.firstChild)
+      {
+        pressure.removeChild(pressure.firstChild);
+      }
+      console.log(pressure);
+
+      var pressuremb=document.createElement('p');
+      pressuremb.innerHTML="Pressure(mb):- "+response.current.pressure_mb;
+      var pressurein=document.createElement('p');
+      pressurein.innerHTML="Pressure(Index):- "+response.current.pressure_in;
+      var winddegree=document.createElement('p');
+      winddegree.innerHTML="Wind Degree:- "+response.current.wind_degree;
+      pressure.appendChild(pressuremb);
+      pressure.appendChild(pressurein);
+      pressure.appendChild(winddegree);
+      //End of Pressure Section
+
+
+
+
+
+      //Start of Humidity Section
+      var humidity=document.getElementsByClassName('humidity')[0];
+      while(humidity.firstChild)
+      {
+        humidity.removeChild(humidity.firstChild);
+      }
+      console.log(humidity);
+
+      var humidity1=document.createElement('p');
+      humidity1.innerHTML="Humid:- "+response.current.humidity;
+      var cloud1=document.createElement('p');
+      cloud1.innerHTML="Cloud:- "+response.current.cloud;
+      var heatindexc=document.createElement('p');
+      heatindexc.innerHTML="Heat Index:- "+response.current.heatindex_c;
+      humidity.appendChild(humidity1);
+      humidity.appendChild(cloud1);
+      humidity.appendChild(heatindexc);
+      //End of Humidity Section
+
+
+
+
+
+      //Start of Dew-Point Section
+      var dewpoint=document.getElementsByClassName('dewpoint')[0];
+      while(dewpoint.firstChild)
+      {
+        dewpoint.removeChild(dewpoint.firstChild);
+      }
+      console.log(dewpoint);
+
+      var dewpointc=document.createElement('p');
+      dewpointc.innerHTML="DewPoint(c):- "+response.current.dewpoint_c;
+      var dewpointf=document.createElement('p');
+      dewpointf.innerHTML="DewPoint(f):- "+response.current.dewpoint_f;
+      var viskm=document.createElement('p');
+      viskm.innerHTML="Visual(km):- "+response.current.vis_km;
+      dewpoint.appendChild(dewpointc);
+      dewpoint.appendChild(dewpointf);
+      dewpoint.appendChild(viskm);
+      //End of Dew-Point Section
+
+
+
+      //Start of UV Section
+      var ultravoilet=document.getElementsByClassName('ultravoilet')[0];
+      while(ultravoilet.firstChild)
+      {
+        ultravoilet.removeChild(ultravoilet.firstChild);
+      }
+      console.log(ultravoilet);
+
+      var uv1=document.createElement('p');
+      uv1.innerHTML="Radiation:- "+response.current.uv;
+      var gustmph=document.createElement('p');
+      gustmph.innerHTML="Gust(mph):- "+response.current.gust_mph;
+      var gustkph=document.createElement('p');
+      gustkph.innerHTML="Gust(kph):- "+response.current.gust_kph;
+      ultravoilet.appendChild(uv1);
+      ultravoilet.appendChild(gustmph);
+      ultravoilet.appendChild(gustkph);
+      //End of UV section
+
+
+
+
+
+
+
+
+
+
+
+
+
+  } else {
+      // Handle error
+  }
+};
+}
+
+</script> 
+
+<!-- Background video -->
+<div class="video-background-holder">
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="https://thumbsnap.com/i/cGPdmAwp.mp4" type="video/mp4">
+    </video>  
+</div>
+
+<body>
+
+<!--Search Bar-->
+<div class="container container1">
+  <h3 class="text-white">Welcome to Weather Application</h3>
+  <form action="javascript:search(place.value)" >
+       <input type="text" name="place" id="place" placeholder="Enter a City Name" />
+       <input type="submit" class="btn btn-primary"></input>
+     </form>
+
+
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Region</h5>
+        <p class="card-text region">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Location</h5>
+        <p class="card-text location1">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Temperature</h5>
+        <p class="card-text temperature"></p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Conditions</h5>
+        <p class="card-text condition">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Wind Speed</h5>
+        <p class="card-text wind_speed">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Pressure</h5>
+        <p class="card-text pressure">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Humidity</h5>
+        <p class="card-text humidity">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">Dew-Point</h5>
+        <p class="card-text dewpoint">
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card text-white bg-transparent border-white">
+      <div class="card-body">
+        <h5 class="card-title">UV</h5>
+        <p class="card-text ultravoilet">
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>  
+
+<!--Body of The Web Page-->
+
+
+</html>
